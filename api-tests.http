@@ -1,0 +1,51 @@
+@baseUrl = http://localhost:8090
+@token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJnZUlmRS1kUE8xV2JaSUtWa29oeHI3V2hHY2tNTjd3cFBZendGeWpqbFk4In0.eyJleHAiOjE3NDI3NTExNzMsImlhdCI6MTc0Mjc0NzU3MywianRpIjoiNjU4ZjAzZmYtMGYwOC00M2Y0LThmMzktNGY3YzBlODI0MDBiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lY29tbWVyY2UiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNmFhZjZlNzMtZGMzMC00NGU1LWEzYTctNzI2MTc0NDA3MGJkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2hvZS1mZSIsInNpZCI6ImNiMTFlZTlhLWQ3MmEtNDRlMi05ZDg4LWE4MjgyYWQ1OWNkNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo1MTczIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtZWNvbWVyY2UiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlRvbSBEbyIsInByZWZlcnJlZF91c2VybmFtZSI6InRvbWRvIiwiZ2l2ZW5fbmFtZSI6IlRvbSIsImZhbWlseV9uYW1lIjoiRG8iLCJlbWFpbCI6InRvbUBnbWFpbC5jb20ifQ.KdEghFNsivPVqRKwKESUeAU9IYAc36JWVBnfJLLTorD4TVyNiAWwPLt-vDvpcPc_NpSWiJfRwz_bFi94D07UwtADeDXlXBL3uSqoj1xxshibpWay4ba7bXSu6bpLLHYHA4if82jZhy1mIMOnY4rJxOqeCwV7HGa_VqaExXTAc8lO_54sjopLtil4wkXCvOtdqk6HJlK_YwMmFJN8jNwo1UXQOvRkd6PkVdpuez6DNprfI1HHgYlj7Q5_II1KshF1Ac-jyVr18Oic79vk1m8Y5TCom6kf6J1UF1EMJuMBkOn9f9ez5yw6jqP-6oPbnuCNEoDxlUnnaQfe3wWuLB561Q
+@productId = your-product-id-here
+
+### Get Cart
+GET {{baseUrl}}/v1/cart
+Authorization: Bearer {{token}}
+
+### Add Item to Cart
+POST {{baseUrl}}/v1/cart/add
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "variantId": "f0ab8334-cbe2-46a3-9a3c-86046ea19908",
+  "quantity": 1
+}
+
+### Get Products
+GET {{baseUrl}}/api/products
+Authorization: Bearer {{token}}
+
+### Get Product by ID
+GET {{baseUrl}}/api/products/{{productId}}
+Authorization: Bearer {{token}}
+
+### Create Product
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "New Product",
+  "description": "Product Description",
+  "price": 99.99
+}
+
+### Update Product
+PUT {{baseUrl}}/api/products/{{productId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Updated Product",
+  "description": "Updated Description",
+  "price": 89.99
+}
+
+### Delete Product
+DELETE {{baseUrl}}/api/products/{{productId}}
+Authorization: Bearer {{token}}

@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Cart API
+  description: API documentation for managing the shopping cart.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8090
+    description: Local development server
+paths:
+  /v1/cart:
+    get:
+      summary: Get cart details
+      description: Retrieve the details of the current shopping cart.
+      tags:
+        - Cart
+      responses:
+        '200':
+          description: Cart details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+  /v1/cart/add:
+    post:
+      summary: Add item to cart
+      description: Add a product variant to the shopping cart.
+      tags:
+        - Cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddToCartRequest'
+      responses:
+        '200':
+          description: Item added to the cart successfully.
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the cart.
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        items:
+          type: array
+          description: List of items in the cart.
+          items:
+            $ref: '#/components/schemas/CartItem'
+        total:
+          type: number
+          format: float
+          description: The total price of all items in the cart.
+          example: 199.99
+    CartItem:
+      type: object
+      properties:
+        variant_id:
+          type: string
+          format: uuid
+          description: The unique identifier of the product variant.
+          example: "123e4567-e89b-12d3-a456-426614174001"
+        product_name:
+          type: string
+          description: The name of the product.
+          example: "Running Shoes"
+        product_image:
+          type: string
+          description: URL of the product image.
+          example: "https://example.com/images/shoes.jpg"
+        quantity:
+          type: integer
+          description: The quantity of the product in the cart.
+          example: 2
+        price:
+          type: number
+          format: float
+          description: The price of a single product variant.
+          example: 99.99
+    AddToCartRequest:
+      type: object
+      properties:
+        variant_id:
+          type: string
+          format: uuid
+          description: The unique identifier of the product variant to add.
+          example: "123e4567-e89b-12d3-a456-426614174001"
+        quantity:
+          type: integer
+          description: The quantity of the product to add.
+          example: 1
