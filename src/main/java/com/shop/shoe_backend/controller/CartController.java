@@ -6,16 +6,19 @@ import com.shop.shoe_backend.repository.CartItemRepository;
 import com.shop.shoe_backend.repository.CartRepository;
 import com.shop.shoe_backend.request.AddToCartRequest;
 import com.shop.shoe_backend.service.AuthService;
+import com.shop.shoe_backend.service.CartItemService;
+import com.shop.shoe_backend.dto.CartItemResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.List;
 
 @RestController
-@RequestMapping("v1/cart")
-@CrossOrigin(origins = "*")
+@RequestMapping("/v1/cart")
 public class CartController {
 
     @Autowired
@@ -27,20 +30,17 @@ public class CartController {
     @Autowired
     private CartItemRepository cartItemRepository;
 
-    @GetMapping
-    public Cart getCart() {
-        String userEmail = authService.getCurrentUserEmail();
+    @Autowired
+    private CartItemService cartItemService;
 
-        return cartRepository.findByUserEmail(userEmail)
-                .orElseGet(() -> {
-                    Cart cart = new Cart();
-                    cart.setUserEmail(userEmail);
-                    return cartRepository.save(cart);
-                });
+    @GetMapping
+    public ResponseEntity<List<CartItemResponse>> getCart() {
+        String userEmail = authService.getCurrentUserEmail();
+        return ResponseEntity.ok(cartItemService.getCartItemsByUserEmail(userEmail));
     }
 
     @PostMapping("/add")
-    public ResponseEntity addToCart(@RequestBody AddToCartRequest request) {
+    public ResponseEntity<Void> addToCart(@RequestBody AddToCartRequest request) {
         String userEmail = authService.getCurrentUserEmail();
 
         Cart existingCart = cartRepository.findByUserEmail(userEmail).orElse(null);
@@ -51,7 +51,7 @@ public class CartController {
             existingCart = cartRepository.save(cart);
         }
 
-        Optional<CartItem> existingCartItem = cartItemRepository.findByCartIdAndVariantId(existingCart.getId(), request.getVariantId());
+        Optional<CartItem> existingCartItem = cartItemRepository.findByCartIdAndProductIdAndVariantId(existingCart.getId(), request.getProductId(), request.getVariantId());
 
         CartItem cartItem;
         if (existingCartItem.isPresent()) {
@@ -59,6 +59,7 @@ public class CartController {
             cartItem.setQuantity(cartItem.getQuantity() + request.getQuantity());
         } else {
             cartItem = new CartItem();
+            cartItem.setProductId(request.getProductId());
             cartItem.setVariantId(request.getVariantId());
             cartItem.setQuantity(request.getQuantity());
             cartItem.setCartId(existingCart.getId());

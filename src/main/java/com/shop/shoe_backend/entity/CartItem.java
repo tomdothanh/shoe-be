@@ -18,6 +18,9 @@ public class CartItem {
     @Column(name = "cart_id")
     private UUID cartId;
 
+    @Column(name = "product_id")
+    private UUID productId;
+
     @Column(name = "variant_id")
     private UUID variantId;
 
