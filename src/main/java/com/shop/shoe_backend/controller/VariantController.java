@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,11 +18,6 @@ public class VariantController {
 
     @Autowired
     private VariantRepository variantRepository;
-
-    @GetMapping("/product/{productId}")
-    public List<Variant> getVariantsByProductId(@PathVariable UUID productId) {
-        return variantRepository.findByProductId(productId);
-    }
 
     @GetMapping("/{variantId}")
     public Variant getVariantById(@PathVariable UUID variantId) {

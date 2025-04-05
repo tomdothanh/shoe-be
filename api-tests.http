@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:8090
 @token = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJnZUlmRS1kUE8xV2JaSUtWa29oeHI3V2hHY2tNTjd3cFBZendGeWpqbFk4In0.eyJleHAiOjE3NDI3NTExNzMsImlhdCI6MTc0Mjc0NzU3MywianRpIjoiNjU4ZjAzZmYtMGYwOC00M2Y0LThmMzktNGY3YzBlODI0MDBiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lY29tbWVyY2UiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNmFhZjZlNzMtZGMzMC00NGU1LWEzYTctNzI2MTc0NDA3MGJkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2hvZS1mZSIsInNpZCI6ImNiMTFlZTlhLWQ3MmEtNDRlMi05ZDg4LWE4MjgyYWQ1OWNkNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo1MTczIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtZWNvbWVyY2UiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlRvbSBEbyIsInByZWZlcnJlZF91c2VybmFtZSI6InRvbWRvIiwiZ2l2ZW5fbmFtZSI6IlRvbSIsImZhbWlseV9uYW1lIjoiRG8iLCJlbWFpbCI6InRvbUBnbWFpbC5jb20ifQ.KdEghFNsivPVqRKwKESUeAU9IYAc36JWVBnfJLLTorD4TVyNiAWwPLt-vDvpcPc_NpSWiJfRwz_bFi94D07UwtADeDXlXBL3uSqoj1xxshibpWay4ba7bXSu6bpLLHYHA4if82jZhy1mIMOnY4rJxOqeCwV7HGa_VqaExXTAc8lO_54sjopLtil4wkXCvOtdqk6HJlK_YwMmFJN8jNwo1UXQOvRkd6PkVdpuez6DNprfI1HHgYlj7Q5_II1KshF1Ac-jyVr18Oic79vk1m8Y5TCom6kf6J1UF1EMJuMBkOn9f9ez5yw6jqP-6oPbnuCNEoDxlUnnaQfe3wWuLB561Q
-@productId = your-product-id-here
+@productId = aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
 
 ### Get Cart
 GET {{baseUrl}}/v1/cart
@@ -17,12 +17,13 @@ Authorization: Bearer {{token}}
 }
 
 ### Get Products
-GET {{baseUrl}}/api/products
-Authorization: Bearer {{token}}
+GET {{baseUrl}}/v1/products
 
 ### Get Product by ID
-GET {{baseUrl}}/api/products/{{productId}}
-Authorization: Bearer {{token}}
+GET {{baseUrl}}/v1/products/{{productId}}
+
+### Get Variants by Product ID
+GET {{baseUrl}}/v1/products/{{productId}}/variants
 
 ### Create Product
 POST {{baseUrl}}/api/products

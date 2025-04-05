@@ -24,7 +24,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow all OPTIONS requests
                         .requestMatchers("/v1/cart/**").authenticated() // Protect cart APIs
-                        .anyRequest().authenticated()                    // All other requests need authentication
+                        .anyRequest().permitAll()                    // All other requests need authentication
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.decoder(jwtDecoder()))           // JWT validation

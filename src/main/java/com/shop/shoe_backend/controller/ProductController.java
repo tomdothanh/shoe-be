@@ -1,7 +1,10 @@
 package com.shop.shoe_backend.controller;
 
 import com.shop.shoe_backend.entity.Product;
+import com.shop.shoe_backend.entity.Variant;
 import com.shop.shoe_backend.repository.ProductRepository;
+import com.shop.shoe_backend.repository.VariantRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,10 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private VariantRepository variantRepository;
+
 
     @GetMapping
     public List<Product> getAllProducts() {
@@ -45,5 +52,11 @@ public class ProductController {
         } else {
             throw new RuntimeException("Product not found with id: " + productId);
         }
+    }
+
+    @GetMapping("/{productId}/variants")
+    public List<Variant> getVariantsByProductId(@PathVariable UUID productId) {
+        System.out.println("productId: " + productId);
+        return variantRepository.findByProductId(productId);
     }
 }
