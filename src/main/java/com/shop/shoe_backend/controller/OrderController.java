@@ -2,8 +2,6 @@ package com.shop.shoe_backend.controller;
 
 import com.shop.shoe_backend.dto.OrderStatus;
 import com.shop.shoe_backend.entity.Order;
-import com.shop.shoe_backend.entity.OrderItem;
-import com.shop.shoe_backend.repository.OrderItemRepository;
 import com.shop.shoe_backend.repository.OrderRepository;
 import com.shop.shoe_backend.service.AuthService;
 import com.shop.shoe_backend.service.OrderItemService;
@@ -26,9 +24,6 @@ public class OrderController {
 
     @Autowired
     private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderItemRepository orderItemRepository;
 
     @Autowired
     private OrderItemService orderItemService;
