@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .requestMatchers("/v1/cart/**").authenticated()
                 .requestMatchers("/v1/orders/**").authenticated()
                 .requestMatchers("/v1/shipping-info/**").authenticated()
+                .requestMatchers("/v1/payment/**").authenticated()
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

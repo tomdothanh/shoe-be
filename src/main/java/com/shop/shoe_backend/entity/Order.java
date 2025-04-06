@@ -5,9 +5,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.shop.shoe_backend.dto.OrderStatus;
+
 @Data
-@Entity
-@Table(name = "orders")
+@Entity(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,15 +32,4 @@ public class Order {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
 }
-
-enum OrderStatus {
-    PENDING,
-    PROCESSING,
-    SHIPPED,
-    DELIVERED,
-    CANCELLED
-} 
