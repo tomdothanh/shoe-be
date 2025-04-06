@@ -6,5 +6,4 @@ import java.util.UUID;
 @Data
 public class PaymentResponse {
     private UUID orderId;
-    private String clientSecret;
 } 

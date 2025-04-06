@@ -8,11 +8,15 @@ import java.util.UUID;
 import com.shop.shoe_backend.dto.OrderStatus;
 
 @Data
-@Entity(name = "orders")
+@Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(name = "order_number", nullable = false, unique = true)
+    private String orderNumber;
 
     @Column(name = "user_email", nullable = false)
     private String userEmail;
@@ -32,4 +36,10 @@ public class Order {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @Column(name = "client_secret", nullable = false)
+    private String clientSecret;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 }
