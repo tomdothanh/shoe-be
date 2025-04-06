@@ -5,6 +5,7 @@ import com.shop.shoe_backend.entity.CartItem;
 import com.shop.shoe_backend.repository.CartItemRepository;
 import com.shop.shoe_backend.repository.CartRepository;
 import com.shop.shoe_backend.request.AddToCartRequest;
+import com.shop.shoe_backend.request.UpdateCartItemRequest;
 import com.shop.shoe_backend.service.AuthService;
 import com.shop.shoe_backend.service.CartItemService;
 import com.shop.shoe_backend.dto.CartItemResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/cart")
@@ -64,6 +66,42 @@ public class CartController {
             cartItem.setQuantity(request.getQuantity());
             cartItem.setCartId(existingCart.getId());
         }
+        cartItemRepository.save(cartItem);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{itemId}")
+    public ResponseEntity<Void> updateCartItem(
+            @PathVariable UUID itemId,
+            @RequestBody UpdateCartItemRequest request) {
+        String userEmail = authService.getCurrentUserEmail();
+        
+        // Find the cart item and verify it belongs to the current user
+        Optional<CartItem> cartItemOpt = cartItemRepository.findById(itemId);
+        if (cartItemOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        CartItem cartItem = cartItemOpt.get();
+        Cart cart = cartRepository.findById(cartItem.getCartId())
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+
+        if (!cart.getUserEmail().equals(userEmail)) {
+            return ResponseEntity.status(403).build();
+        }
+
+        // Update fields if they are provided in the request
+        if (request.getQuantity() != null) {
+            cartItem.setQuantity(request.getQuantity());
+        }
+        if (request.getProductId() != null) {
+            cartItem.setProductId(request.getProductId());
+        }
+        if (request.getVariantId() != null) {
+            cartItem.setVariantId(request.getVariantId());
+        }
+
         cartItemRepository.save(cartItem);
 
         return ResponseEntity.ok().build();

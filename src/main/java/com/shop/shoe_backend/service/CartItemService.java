@@ -12,6 +12,7 @@ import com.shop.shoe_backend.repository.VariantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,7 @@ public class CartItemService {
         List<CartItem> cartItems = cartItemRepository.findByCartId(cart.getId());
         return cartItems.stream()
                 .map(this::convertToResponse)
+                .sorted(Comparator.comparing(CartItemResponse::getId))
                 .collect(Collectors.toList());
     }
 
