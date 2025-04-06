@@ -32,6 +32,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/v1/cart/**").authenticated()
+                .requestMatchers("/v1/orders/**").authenticated()
+                .requestMatchers("/v1/shipping-info/**").authenticated()
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2

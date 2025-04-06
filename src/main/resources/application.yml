@@ -23,6 +23,13 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/ecommerce
           jwk-set-uri: http://localhost:8080/realms/ecommerce/protocol/openid-connect/certs
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: static/**,public/**,templates/**
+    livereload:
+      enabled: true
 
 keycloak:
   auth-server-url: http://localhost:8080/auth
@@ -34,3 +41,4 @@ keycloak:
 logging:
   level:
     org.springframework.security: DEBUG
+    org.springframework.boot.devtools: DEBUG
